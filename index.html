@@ -1,0 +1,145 @@
+<!DOCTYPE html><html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Rudra Story</title><style>
+
+body{
+margin:0;
+font-family:Arial;
+color:white;
+text-align:center;
+overflow-x:hidden;
+background:linear-gradient(270deg,#000428,#004e92,#000428);
+background-size:600% 600%;
+animation:galaxy 15s ease infinite;
+}
+
+/* galaxy animation */
+
+@keyframes galaxy{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* particles */
+
+#particles-js{
+position:fixed;
+width:100%;
+height:100%;
+z-index:-1;
+}
+
+/* container */
+
+.container{
+max-width:800px;
+margin:auto;
+padding:40px;
+}
+
+h1{
+font-size:40px;
+color:#00ffff;
+text-shadow:0 0 20px cyan;
+margin-bottom:30px;
+}
+
+/* story */
+
+#story{
+text-align:left;
+line-height:1.8;
+font-size:18px;
+min-height:300px;
+}
+
+/* instagram button */
+
+button{
+margin-top:40px;
+padding:12px 25px;
+font-size:18px;
+background:#ff2e63;
+border:none;
+border-radius:30px;
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+box-shadow:0 0 20px #ff2e63;
+}
+
+</style></head><body><div id="particles-js"></div><div class="container"><h1>एक प्रेरणादायक कहानी</h1><p id="story"></p><a href="https://instagram.com/rudratiwaris" target="_blank">
+<button>Follow Me on Instagram</button>
+</a></div><script src="https://cdn.jsdelivr.net/npm/particles.js"></script><script>
+
+/* particles */
+
+particlesJS("particles-js",{
+particles:{
+number:{value:90},
+size:{value:3},
+color:{value:"#00ffff"},
+line_linked:{enable:true,color:"#00ffff"},
+move:{speed:2}
+}
+});
+
+/* typing story */
+
+const text = `एक छोटे से शहर में रुद्र नाम का एक लड़का रहता था।
+रुद्र साधारण परिवार से था लेकिन उसके सपने बहुत बड़े थे।
+लोग अक्सर उससे कहते थे कि बड़े सपने मत देखो।
+लेकिन रुद्र का मानना था कि सपने देखना ही इंसान को आगे बढ़ाता है।
+वह हर दिन कुछ नया सीखने की कोशिश करता था।
+कभी किताबों से सीखता था तो कभी इंटरनेट से।
+कभी-कभी उसे समझ नहीं आता था कि आगे क्या करना है।
+लेकिन उसने हार मानना कभी नहीं सीखा।
+जब दूसरे लोग समय बर्बाद करते थे तब रुद्र सीख रहा होता था।
+धीरे-धीरे उसकी मेहनत रंग लाने लगी।
+लोगों को उसके काम में प्रतिभा दिखने लगी।
+कुछ लोग उसकी तारीफ करते थे।
+कुछ लोग अभी भी उस पर शक करते थे।
+लेकिन रुद्र को अब फर्क नहीं पड़ता था।
+उसे पता था कि उसका रास्ता सही है।
+हर दिन वह अपने सपनों के और करीब पहुंच रहा था।
+उसने सीखा कि असफलता भी एक शिक्षक होती है।
+जब भी वह गिरता था, वह फिर से खड़ा हो जाता था।
+उसके अंदर एक अजीब सा आत्मविश्वास था।
+उसे भरोसा था कि एक दिन वह जरूर सफल होगा।
+रास्ते में कई मुश्किलें आईं।
+कभी पैसे की कमी हुई।
+कभी लोगों का साथ नहीं मिला।
+लेकिन उसने अपना हौसला कभी नहीं खोया।
+समय धीरे-धीरे बदलता गया।
+रुद्र की मेहनत सबको दिखने लगी।
+लोग उससे प्रेरणा लेने लगे।
+जो लोग पहले हंसते थे वही अब तारीफ करने लगे।
+रुद्र ने साबित कर दिया कि मेहनत कभी बेकार नहीं जाती।
+और अंत में उसने अपने सपनों को सच कर दिखाया।`;
+
+let i = 0;
+
+function typing(){
+
+if(i < text.length){
+
+document.getElementById("story").innerHTML += text.charAt(i);
+
+i++;
+
+setTimeout(typing,40);
+
+}
+
+}
+
+typing();
+
+</script></body>
+</html>
