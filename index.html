@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Funny AI Chat 🤖</title>
+<style>
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#0f172a;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+.container{
+  width:95%;
+  max-width:400px;
+  background:rgba(255,255,255,0.05);
+  padding:15px;
+  border-radius:12px;
+  display:flex;
+  flex-direction:column;
+  height:80vh;
+}
+h1{text-align:center;margin-bottom:10px;color:#66fcf1;}
+#chatBox{
+  flex:1; overflow-y:auto;
+  border:1px solid rgba(255,255,255,0.3);
+  padding:10px;
+  border-radius:8px;
+  margin-bottom:10px;
+}
+.message{
+  margin:6px 0;
+  padding:8px 12px;
+  border-radius:12px;
+  max-width:78%;
+  word-wrap:break-word;
+}
+.user{background:#ff3385; align-self:flex-end;color:white;}
+.ai{background:#1e90ff; align-self:flex-start;color:white;}
+input{flex:1;padding:10px;border:none;border-radius:8px;margin-right:5px;}
+button{padding:10px;border:none;border-radius:8px;background:#ff3385;color:white;cursor:pointer;}
+button:hover{background:#ff66aa;}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>😂 Funny AI Chat</h1>
+<div id="chatBox"></div>
+<div style="display:flex;">
+<input type="text" id="userInput" placeholder="Type your message">
+<button onclick="sendMessage()">Send</button>
+</div>
+</div>
+
+<script>
+const chatBox=document.getElementById("chatBox");
+
+// Funny AI replies array
+const funnyReplies=[
+  "Hahaha, that's hilarious! 😂",
+  "Oh no, really? 😆",
+  "LOL, I can't stop laughing 🤣",
+  "Arey bhai, seriously? 😜",
+  "Haha, good one! 😎",
+  "You are funny 😏",
+  "I didn't see that coming 😲",
+  "😂😂😂",
+  "Stop it, I'm dying of laughter 😹",
+  "Hmm interesting 🤔"
+];
+
+function sendMessage(){
+  const input=document.getElementById("userInput");
+  const text=input.value.trim();
+  if(!text) return;
+
+  // Show user message
+  const userMsg=document.createElement("div");
+  userMsg.classList.add("message","user");
+  userMsg.innerText=text;
+  chatBox.appendChild(userMsg);
+  input.value="";
+  chatBox.scrollTop=chatBox.scrollHeight;
+
+  // AI reply
+  setTimeout(()=>{
+    const aiMsg=document.createElement("div");
+    aiMsg.classList.add("message","ai");
+    const reply=funnyReplies[Math.floor(Math.random()*funnyReplies.length)];
+    aiMsg.innerText="AI: "+reply;
+    chatBox.appendChild(aiMsg);
+    chatBox.scrollTop=chatBox.scrollHeight;
+  },800);
+}
+</script>
+</body>
+</html>
