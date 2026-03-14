@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rudra Zombie Shooter</title>
+
+<style>
+
+body{
+margin:0;
+overflow:hidden;
+background:black;
+font-family:Arial;
+}
+
+#crosshair{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+color:white;
+font-size:28px;
+}
+
+#score{
+position:absolute;
+top:10px;
+left:10px;
+color:white;
+font-size:18px;
+}
+
+#joystick{
+position:absolute;
+bottom:40px;
+left:30px;
+width:120px;
+height:120px;
+border-radius:60px;
+background:rgba(255,255,255,0.1);
+}
+
+#stick{
+position:absolute;
+width:50px;
+height:50px;
+background:white;
+border-radius:25px;
+left:35px;
+top:35px;
+}
+
+#fire{
+position:absolute;
+bottom:60px;
+right:30px;
+width:80px;
+height:80px;
+border-radius:40px;
+background:red;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:18px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="crosshair">+</div>
+<div id="score">Score: 0</div>
+
+<div id="joystick">
+<div id="stick"></div>
+</div>
+
+<div id="fire">FIRE</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+
+<script>
+
+let scene=new THREE.Scene()
+
+let camera=new THREE.PerspectiveCamera(
+75,
+window.innerWidth/window.innerHeight,
+0.1,
+1000
+)
+
+let renderer=new THREE.WebGLRenderer()
+
+renderer.setSize(window.innerWidth,window.innerHeight)
+
+document.body.appendChild(renderer.domElement)
+
+let light=new THREE.DirectionalLight(0xffffff,1)
+
+light.position.set(5,10,7)
+
+scene.add(light)
+
+let floorGeo=new THREE.PlaneGeometry(200,200)
+
+let floorMat=new THREE.MeshPhongMaterial({color:0x222222})
+
+let floor=new THREE.Mesh(floorGeo,floorMat)
+
+floor.rotation.x=-Math.PI/2
+
+scene.add(floor)
+
+camera.position.y=2
+
+/* Buildings */
+
+for(let i=0;i<20;i++){
+
+let geo=new THREE.BoxGeometry(4,8,4)
+
+let mat=new THREE.MeshPhongMaterial({color:0x555555})
+
+let b=new THREE.Mesh(geo,mat)
+
+b.position.x=(Math.random()-0.5)*80
+b.position.z=(Math.random()-0.5)*80
+b.position.y=4
+
+scene.add(b)
+
+}
+
+/* Zombies */
+
+let enemies=[]
+let score=0
+
+function spawnZombie(){
+
+let geo=new THREE.BoxGeometry(2,3,2)
+
+let mat=new THREE.MeshPhongMaterial({color:0x00ff00})
+
+let z=new THREE.Mesh(geo,mat)
+
+z.position.x=(Math.random()-0.5)*40
+z.position.z=-Math.random()*40
+z.position.y=1.5
+
+scene.add(z)
+
+enemies.push(z)
+
+}
+
+setInterval(spawnZombie,2000)
+
+/* Shooting */
+
+function shoot(){
+
+let ray=new THREE.Raycaster()
+
+ray.setFromCamera({x:0,y:0},camera)
+
+let hit=ray.intersectObjects(enemies)
+
+if(hit.length>0){
+
+scene.remove(hit[0].object)
+
+enemies.splice(enemies.indexOf(hit[0].object),1)
+
+score++
+
+document.getElementById("score").innerText="Score: "+score
+
+}
+
+}
+
+document.getElementById("fire").addEventListener("touchstart",shoot)
+
+/* Joystick */
+
+let moveX=0
+let moveZ=0
+
+let stick=document.getElementById("stick")
+
+document.getElementById("joystick").addEventListener("touchmove",e=>{
+
+let t=e.touches[0]
+
+let rect=e.target.getBoundingClientRect()
+
+let x=t.clientX-rect.left-60
+let y=t.clientY-rect.top-60
+
+stick.style.left=(x+60-25)+"px"
+stick.style.top=(y+60-25)+"px"
+
+moveX=x/40
+moveZ=y/40
+
+})
+
+document.getElementById("joystick").addEventListener("touchend",()=>{
+
+stick.style.left="35px"
+stick.style.top="35px"
+
+moveX=0
+moveZ=0
+
+})
+
+function animate(){
+
+requestAnimationFrame(animate)
+
+camera.position.x+=moveX*0.1
+camera.position.z+=moveZ*0.1
+
+renderer.render(scene,camera)
+
+}
+
+animate()
+
+</script>
+
+</body>
+</html>
