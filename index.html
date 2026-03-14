@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anime Kiss Animation</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: #1e1e2f;
+    overflow: hidden;
+    position: relative;
+  }
+
+  #animeGirl {
+    position: absolute;
+    bottom: 0;
+    left: -200px; /* start off screen */
+    width: 150px;
+    transition: left 3s linear, transform 1s;
+    z-index: 10;
+  }
+
+  #kissHeart {
+    position: absolute;
+    bottom: 150px;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    font-size: 40px;
+    color: pink;
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+</style>
+</head>
+<body>
+
+<img id="animeGirl" src="https://i.imgur.com/oKxvF8B.gif" alt="Anime Girl"> 
+<!-- Replace the src with your GIF link -->
+
+<div id="kissHeart">💋</div>
+
+<script>
+  const girl = document.getElementById('animeGirl');
+  const heart = document.getElementById('kissHeart');
+
+  // Start the animation after 1 second
+  setTimeout(() => {
+    girl.style.left = '50%';
+    girl.style.transform = 'translateX(-50%)';
+  }, 1000);
+
+  // Show kiss heart after girl reaches center
+  setTimeout(() => {
+    heart.style.transform = 'translateX(-50%) scale(1)';
+    heart.style.opacity = '1';
+  }, 4000);
+
+  // Girl leaves screen after kiss
+  setTimeout(() => {
+    heart.style.opacity = '0';
+    girl.style.left = '100%'; // moves off screen to right
+  }, 6000);
+</script>
+
+</body>
+</html>
